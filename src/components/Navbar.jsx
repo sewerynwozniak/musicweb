@@ -18,11 +18,7 @@ const Navbar = () => {
                 Music
             </NavLink>
         </li>
-        <li>
-            <NavLink to='/artist'>
-                Artist
-            </NavLink>
-        </li>
+
         <li>
             <NavLink to='/signup'>
                 Sign up
