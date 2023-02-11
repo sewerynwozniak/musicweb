@@ -5,6 +5,7 @@ import Signup from './components/Signup'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Music from './components/Music'
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 
 function App() {
@@ -18,7 +19,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/signup' element={<Signup />}/>
-        <Route path='/music' element={<Music />}/>
+        <Route element={<ProtectedRoutes />}>
+          <Route path='/music' element={<Music />}/>
+        </Route>
+        
       </Routes> 
 
     </div>

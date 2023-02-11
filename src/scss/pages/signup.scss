@@ -1,0 +1,12 @@
+.signup{
+    &__container{
+        text-align: center;
+    }
+    &__form{
+       
+        input{
+            display: block;
+            margin: auto;
+        }
+    }
+}
