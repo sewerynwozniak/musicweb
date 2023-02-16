@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {Routes, Route} from 'react-router-dom';
-import Signup from './components/Signup'
+import SignUp from './components/SignUp'
+import SignIn from './components/SignIn';
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Music from './components/Music'
@@ -18,7 +19,8 @@ function App() {
   
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/signup' element={<Signup />}/>
+          <Route path='/signup' element={<SignUp />}/>
+          <Route path='/signin' element={<SignIn />}/>
           <Route element={<ProtectedRoutes />}>
             <Route path='/music' element={<Music />}/>
           </Route>

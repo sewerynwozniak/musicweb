@@ -1,6 +1,6 @@
 import React from 'react'
 import {Outlet} from 'react-router-dom'
-import Signup from './Signup';
+import Signup from './SignUp';
 
 const userAuth = true;
 

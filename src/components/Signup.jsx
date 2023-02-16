@@ -26,14 +26,14 @@ const Signup = () => {
       setError("Fail to create an account")
     }
     setLoading(false)
-    console.log('success')
+ 
   }
 
   return (
     <div className='signup__container'>
       <h1>Sign up</h1>
       {error && error}
-      {currentUser && currentUser.email}
+
       <form onSubmit={handleSubmit} className='signup__form' action="">
         <label htmlFor="form_email">Email</label>
         <input id='form_email' ref={emailRef} type="email" name='email' />
