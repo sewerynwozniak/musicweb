@@ -1,0 +1,24 @@
+.nav{
+
+    &__wrapper{
+        display: flex;
+
+        li{
+            list-style: none;
+            margin: 20px 50px;
+            text-decoration: none;
+        }
+        a{
+            text-decoration: none;
+
+      
+        }
+        a.active{
+            color: rgb(141, 95, 95);
+
+      
+        }
+
+
+    }
+}

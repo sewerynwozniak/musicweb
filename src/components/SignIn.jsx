@@ -8,7 +8,7 @@ const SignIn = () => {
     const emailRef = useRef()
     const passRef = useRef()
     const { signIn } = useAuth()
-    const [error, setError] = useState('demo error')
+    const [error, setError] = useState('')
     const [loading, setLoading] = useState('')
     const navigate = useNavigate();
   
@@ -18,9 +18,9 @@ const SignIn = () => {
       try {
         await signIn(emailRef.current.value, passRef.current.value)
       } catch(error) {
-        console.log('error:', error)
+        setError(error.code)
       }
-      
+      navigate('/')
     }
 
 

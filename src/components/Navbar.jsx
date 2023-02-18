@@ -21,18 +21,38 @@ const Navbar = () => {
         }
       }
 
+
+
+      const menuList = [
+        {
+            key:1,
+            name:'Home',
+            path:'/',
+
+        },
+        {
+            key:2,
+            name:'Music',
+            path:'/music',
+
+        }
+     
+
+    ]
+
+
+
   return (
-    <div>
-        <li>
-            <NavLink to='/'>
-                Home
-            </NavLink>
-        </li>
-        <li>
-            <NavLink to='/music'>
-                Music
-            </NavLink>
-        </li>
+    <div className='nav__wrapper'>
+
+        {menuList.map(menu=>(
+            <li>
+                <NavLink className='nav__a' to={menu.path}>
+                    {menu.name}
+                </NavLink>
+            </li>
+        ))}
+
 
         <li>
             {currentUser?(
@@ -40,17 +60,13 @@ const Navbar = () => {
                     Log out
                 </button>
             ):(
-                <NavLink to='/signin'>
+                <NavLink className='nav__a' to='/signin'>
                     Sign in
                 </NavLink>
             )}
            
         </li>
         
-      
-
-
-
 
 
     </div>
