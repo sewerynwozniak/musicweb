@@ -13,7 +13,14 @@ const Home = () => {
   return (
     <>
       <div>Home</div>
-      <p>Current user: {currentUser && 'mamy usera'}</p>
+
+      {currentUser?(
+                currentUser.email
+            ):(
+              null
+          )}
+
+      <p>Current user: {currentUser && currentUser.email}</p>
   
     </>
    

@@ -2,9 +2,12 @@ import React, {useState} from 'react'
 import { NavLink, useNavigate} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'
 
+
  
 
 const Navbar = () => {
+
+    
 
     const {currentUser, logOut} = useAuth();
     const [error, setError] = useState('')
@@ -44,7 +47,7 @@ const Navbar = () => {
 
   return (
     <div className='nav__wrapper'>
-
+     
         {menuList.map(menu=>(
             <li>
                 <NavLink className='nav__a' to={menu.path}>

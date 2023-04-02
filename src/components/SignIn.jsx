@@ -9,18 +9,23 @@ const SignIn = () => {
     const passRef = useRef()
     const { signIn } = useAuth()
     const [error, setError] = useState('')
-    const [loading, setLoading] = useState('')
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
   
 
     async function handleSubmit(e) {
       e.preventDefault()
       try {
+        setLoading(true)
         await signIn(emailRef.current.value, passRef.current.value)
       } catch(error) {
+        
         setError(error.code)
       }
-      navigate('/')
+      if(!loading && error==''){
+        navigate('/')
+      }
+      
     }
 
 

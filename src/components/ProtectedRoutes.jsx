@@ -1,13 +1,18 @@
 import React from 'react'
 import {Outlet} from 'react-router-dom'
 import Signup from './SignUp';
+import { useAuth } from '../contexts/AuthContext'
 
-const userAuth = true;
+
+
 
 const ProtectedRoutes = () => {
+   
+
+const { currentUser } = useAuth()
 
  
-return userAuth?( 
+return currentUser?( 
     <>
   
         <Outlet /> 

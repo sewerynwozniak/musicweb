@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import {getFirestore} from 'firebase/firestore/lite'
 
 const app = firebase.initializeApp({
     apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
@@ -12,4 +13,5 @@ const app = firebase.initializeApp({
 
 
 export const auth = app.auth()
-export default app;
+export const db = getFirestore(app);
+export default app; 
