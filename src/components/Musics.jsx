@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {db} from '../firebase'
 import { collection, getDocs  } from 'firebase/firestore/lite';
+import AddMusic from './AddMusic';
 
 
 const Musics = () => {
@@ -27,6 +28,9 @@ const Musics = () => {
   return (
     
     <div>
+
+        <AddMusic />
+
         <p>List</p>
         {songs.map(song=>{
          return(
