@@ -1,2 +1,5 @@
+@use './base/normalize.scss';
+@use './layouts/main.scss';
 @use './pages/signup.scss';
+@use './pages/musics.scss';
 @use './components/nav.scss'

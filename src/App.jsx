@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {Routes, Route} from 'react-router-dom';
 import SignUp from './components/SignUp'
+import LayoutMain from './components/LayoutMain';
 import SignIn from './components/SignIn';
 import Navbar from './components/Navbar'
 import Home from './components/Home'
@@ -18,13 +19,14 @@ function App() {
         <Navbar />
   
         <Routes>
-          <Route path='/' element={<Home />}/>
-          <Route path='/signup' element={<SignUp />}/>
-          <Route path='/signin' element={<SignIn />}/>
-          <Route element={<ProtectedRoutes />}>
-            <Route path='/music' element={<Musics />}/>
+          <Route element={<LayoutMain />}>
+            <Route path='/' element={<Home />}/>
+            <Route path='/signup' element={<SignUp />}/>
+            <Route path='/signin' element={<SignIn />}/>
+            <Route element={<ProtectedRoutes />}>
+              <Route path='/music' element={<Musics />}/>
+            </Route>
           </Route>
-
         </Routes> 
 
       </div>

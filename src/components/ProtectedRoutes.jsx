@@ -13,8 +13,7 @@ const { currentUser } = useAuth()
 
  
 return currentUser?( 
-    <>
-  
+    <> 
         <Outlet /> 
     </>
 

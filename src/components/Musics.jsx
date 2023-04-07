@@ -7,7 +7,9 @@ import AddMusic from './AddMusic';
 const Musics = () => {
 
 
+
   const [songs, setSongs] = useState([])
+  const [newSong, setNewSong] = useState(false)
   const songCollecionRef = collection(db, 'Song');
 
   useEffect(()=>{
@@ -22,22 +24,28 @@ const Musics = () => {
 
     getSongs()
 
-  },[])
+  },[newSong])
+
+
 
   
   return (
     
-    <div>
+    <div className='musics'>
 
-        <AddMusic />
+        <AddMusic newSong={()=>setNewSong(true)}/>
 
-        <p>List</p>
-        {songs.map(song=>{
-         return(
-          <a href="">{song.name}</a>
-         )
-        })}
+        <p className='musics__headline'>List</p>
 
+        <ul className='musics__ul'> 
+          {songs.map(song=>{
+           return(
+
+            <li href="">{song.name}</li>
+
+           )
+          })}
+        </ul> 
      </div>
   )
 }
