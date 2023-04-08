@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {db} from '../firebase'
 import { collection, getDocs  } from 'firebase/firestore/lite';
 import AddMusic from './AddMusic';
+import starGrey from '../../src/assets/star-grey.png'
+import starGold from '../../src/assets/star-gold.png'
 
 
 const Musics = () => {
@@ -27,6 +29,8 @@ const Musics = () => {
   },[newSong])
 
 
+  let starsArray = Array.from({length: 10}, (_, i) => i + 1);
+
 
   
   return (
@@ -36,12 +40,30 @@ const Musics = () => {
         <AddMusic newSong={()=>setNewSong(true)}/>
 
         <p className='musics__headline'>List</p>
-
+    
         <ul className='musics__ul'> 
           {songs.map(song=>{
            return(
 
-            <li href="">{song.name}</li>
+            <li 
+             
+              href="">
+
+              {song.name}      
+              <div className="musics__starsWrapper">
+                {starsArray.map(star=>(
+                  <img 
+                    onMouseOver={e => e.target.src=starGold}
+                    onMouseLeave={e => e.target.src=starGrey}
+           
+                    className='musics__star' 
+                    data-index={star} 
+                    src={starGrey} alt="" 
+                  />
+                ))}
+              </div>
+              
+            </li>
 
            )
           })}

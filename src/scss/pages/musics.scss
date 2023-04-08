@@ -6,5 +6,20 @@
 
     &__ul{
         
+        li{
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+    }
+
+
+    &__starsWrapper{
+        margin-left: 10px;
+    }
+    &__star{
+        width: 25px;
+        margin: 0 3px;
+        cursor: pointer;
     }
 }
