@@ -32,6 +32,23 @@ const Musics = () => {
   let starsArray = Array.from({length: 10}, (_, i) => i + 1);
 
 
+  const selectingStars = (e)=>{
+
+    const starIndex = e.target.dataset.index
+    const parent = e.target.parentElement
+    const selectedStars = parent.querySelectorAll(`:nth-child(n+1):nth-child(-n+${starIndex})`);
+    const selectedStarsArray = Array.from(selectedStars);  
+    selectedStarsArray.forEach(el=>el.src=starGold)
+
+  }
+  const unselectingStars = (e)=>{
+
+    const parent = e.target.parentElement
+    const selectedStarsArray = Array.from(parent.children);
+    selectedStarsArray.forEach(el=>el.src=starGrey)
+
+  }
+
   
   return (
     
@@ -53,8 +70,8 @@ const Musics = () => {
               <div className="musics__starsWrapper">
                 {starsArray.map(star=>(
                   <img 
-                    onMouseOver={e => e.target.src=starGold}
-                    onMouseLeave={e => e.target.src=starGrey}
+                    onMouseOver={e => selectingStars(e)}
+                    onMouseLeave={e => unselectingStars(e)}
            
                     className='musics__star' 
                     data-index={star} 
