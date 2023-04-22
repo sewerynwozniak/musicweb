@@ -40,6 +40,7 @@ const Music = ({song}) => {
       <div className="musics__starsWrapper">
         {starsArray.map((_, i)=>(
           <img 
+            key={i+1}
             onMouseOver={e=>highlightingStars(e)}
             onMouseLeave={e=>unhighlightingStars(e)}
             onClick={e=>selectingStar(e)}

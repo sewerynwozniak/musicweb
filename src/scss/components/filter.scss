@@ -1,0 +1,40 @@
+.sort{
+
+    &__wrapper{
+        margin: 20px 0;
+        display: inline-block;
+    }
+
+    &__dropdown{
+        overflow: hidden;
+        border: 1px solid #949494;
+        padding: 0px;
+        position: absolute;
+        background-color: #fff;
+
+        li{
+            list-style: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+    }
+    &__current{
+        cursor: pointer;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+
+        img{
+            margin-left: 10px;
+        }
+
+    }
+    &__close{
+        height: 0;
+    }
+
+    &__arrowUp{
+        transform: rotate(180deg);
+        transition: 0.3s;
+    }
+}

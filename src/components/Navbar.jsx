@@ -49,7 +49,9 @@ const Navbar = () => {
     <div className='nav__wrapper'>
      
         {menuList.map(menu=>(
-            <li>
+            <li
+                key={menu.key}
+            >
                 <NavLink className='nav__a' to={menu.path}>
                     {menu.name}
                 </NavLink>
