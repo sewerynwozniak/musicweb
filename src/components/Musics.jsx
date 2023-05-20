@@ -7,6 +7,7 @@ import Sort from './Sort';
 
 
 
+
 const Musics = () => {
 
 
@@ -39,9 +40,6 @@ const Musics = () => {
   },[sortType])
 
 
-  // const manageSortFunc = (sortProp)=>{
-  //   setSortType(sortProp, ()=>sortFunc())
-  // }
 
   const sortFunc = ()=>{
 
@@ -72,6 +70,8 @@ const Musics = () => {
   ))
 
 
+
+  
   
   return (
     

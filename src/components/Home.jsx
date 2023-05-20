@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom';
+import FormDemo from './radix-components/Form';
 
 const Home = () => {
 
@@ -12,8 +13,8 @@ const Home = () => {
 
   return (
     <>
-      <div>Home</div>
-
+      
+   
       {currentUser?(
                 currentUser.email
             ):(
@@ -22,6 +23,10 @@ const Home = () => {
 
       <p>Current user: {currentUser && currentUser.email}</p>
   
+
+              <FormDemo />
+     
+
     </>
    
   )

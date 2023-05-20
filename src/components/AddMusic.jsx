@@ -9,17 +9,19 @@ const AddMusic = ({newSong}) => {
 
 
     const songCollecionRef = collection(db, 'Song');
-    const [musicInput, setMusicInput] = useState('')
-    const [newMusic, setNewMusic] = useState('')
+    const [musicInputs, setMusicInputs] = useState({})
 
-   
 
+    
     const updateInput = (e)=>{
-        setMusicInput(e.target.value)
+        const {name, value} = e.target;
+      
+        setMusicInputs({...musicInputs, [name]: value})
+
     }
     const submitMusic = async (e)=>{
         e.preventDefault();
-        await addDoc(songCollecionRef, {name: musicInput})
+        await addDoc(songCollecionRef, musicInputs)
         await newSong();
     }
 
@@ -27,7 +29,8 @@ const AddMusic = ({newSong}) => {
   return (
     <div>
         <form onSubmit={submitMusic}>
-            <input type="text" onChange={updateInput} value={musicInput} />
+            <input type="text" onChange={updateInput} name="name" placeholder='name' />
+            <input type="text" onChange={updateInput} name="artist" placeholder='artist' />
             <input type="submit" value="Add" />
         </form>
     </div>

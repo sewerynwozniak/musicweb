@@ -10,9 +10,10 @@ import ProtectedRoutes from './components/ProtectedRoutes';
 import { AuthProvider } from './contexts/AuthContext';
 
 
+
 function App() {
 
-
+ 
   return (
     <AuthProvider>
       <div className="App">
