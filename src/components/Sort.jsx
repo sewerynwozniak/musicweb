@@ -3,7 +3,7 @@ import arrowIcon from '../../src/assets/arrow.png'
 
 const Sort = ({sortFuncProp}) => {
 
-    const currentSort = useState('Sort by date')
+    const [currentSort, setCurrentSort] = useState('Sort by artist')
     const [isOpen, setIsOpen] = useState(false)
     const sortList = [
         {
@@ -30,12 +30,15 @@ const Sort = ({sortFuncProp}) => {
     const manageSortFunc = (e)=>{
         sortFuncProp(e.target.dataset.sort)
         setIsOpen(false)
+        setCurrentSort(e.target.dataset.sortfull)
+            
     }
 
 
     const sortListDisplay = sortList.map(el=>(
         <li 
             data-sort={el.sort}
+            data-sortfull={el.title}
             key={el.id}
             onClick={manageSortFunc}
         >

@@ -1,7 +1,7 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom';
-import FormDemo from './radix-components/Form';
+
 
 const Home = () => {
 
@@ -10,6 +10,7 @@ const Home = () => {
   const navigate = useNavigate();
 
 
+  
 
   return (
     <>
@@ -22,10 +23,7 @@ const Home = () => {
           )}
 
       <p>Current user: {currentUser && currentUser.email}</p>
-  
 
-              <FormDemo />
-     
 
     </>
    

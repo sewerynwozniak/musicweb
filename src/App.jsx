@@ -8,6 +8,7 @@ import Home from './components/Home'
 import Musics from './components/Musics'
 import ProtectedRoutes from './components/ProtectedRoutes';
 import { AuthProvider } from './contexts/AuthContext';
+import Chat from './components/Chat';
 
 
 
@@ -18,7 +19,6 @@ function App() {
     <AuthProvider>
       <div className="App">
         <Navbar />
-  
         <Routes>
           <Route element={<LayoutMain />}>
             <Route path='/' element={<Home />}/>
