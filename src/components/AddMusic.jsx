@@ -11,9 +11,9 @@ const AddMusic = ({newSong}) => {
 
     const songCollecionRef = collection(db, 'Song');
     const artistCollecionRef = collection(db, 'Artist');
-    const [musicInputs, setMusicInputs] = useState({})
+    const [musicInputs, setMusicInputs] = useState({name:'', artist:''})
     const [artists, setArtists] = useState()
-
+    const [showAutoSuggestion, setAutoSuggestion] = useState(false)
 
     
     const updateInput = (e)=>{
@@ -25,6 +25,9 @@ const AddMusic = ({newSong}) => {
 
     const submitMusic = async (e)=>{
         e.preventDefault();
+       
+        if(musicInputs.artist=='' || musicInputs.name=='') return
+        console.log('wykonujemy')
         await addDoc(songCollecionRef, musicInputs)
         await newSong();
     }
@@ -48,43 +51,41 @@ const AddMusic = ({newSong}) => {
     },[])
 
 
+    useEffect( ()=>{
 
-    // useEffect(() => {
-    //     console.log(artists); // Print the artists when it changes
-    //   }, [artists]);
-
-    
-
-    const autoSuggestion=(e)=>{
-
-
-
-    //   console.log(e.target.value)
       
-    //   console.log(artists.name)
+       
+     },[artists])
+
+
+    const demoFunc = (e)=>{
+        e.presist()
+        console.log('dd')
     }
 
-    const showAutoSuggestion=()=>{
 
-   
+
+
+
+    const showAutoSuggestionFunction=()=>{
+
         const inputArtist = musicInputs.artist?.toLowerCase()
-        //const arrayOfArtists = artists?.map(artist=>artist.name.toLowerCase())
-        
         const filteredArists = artists?.filter(artist=>artist.name.toLowerCase().includes(inputArtist))
 
-        
-        console.log(inputArtist)
-        // console.log(arrayOfArtists)
-        console.log(filteredArists)
 
         return(
             <ul>
                 {filteredArists && filteredArists.map(artist=>(
-                    <li key={artist.id}>{artist.name}</li>
+                     <li onClick={()=>setMusicInputs(prev=>({...prev, artist:artist.name}))} key={artist.id}>{artist.name}</li>
                 ))}
+
+               
+                
             </ul>
         )
     }
+
+
 
   return (
     <div>
@@ -94,31 +95,43 @@ const AddMusic = ({newSong}) => {
             <div className="addMusic__inputsWrapper">
 
                 <div className="addMusic__inputWrapper">
-                <input type="text"                  
-                    onChange={(e)=>{
-                        updateInput(e); 
-                    }} 
-                        name="name" 
-                        placeholder='name' 
-                />
-                </div>
-                <div className="addMusic__inputWrapper">
+                    <input type="text"                  
+                        onChange={(e)=>{
+                            updateInput(e); 
+                        }} 
+                            name="name" 
+                            placeholder='name' 
+                    />
+                    </div>
+                <div tabIndex={0} 
+                        onBlur={(e) => {
+                            if (!e.currentTarget.contains(e.relatedTarget)) {
+                              setAutoSuggestion(false);
+                            }
+                          }}
+                        onFocus={()=>setAutoSuggestion(true)}                                
+                        className="addMusic__inputWrapper">
 
-                <input type="text"    
-                onChange={(e)=>{autoSuggestion(e); updateInput(e)}}  
-                name="artist" placeholder='artist' 
-                />
+                    <input type="text"    autoComplete="off"
+                        onChange={(e)=> updateInput(e)}                    
+                        name="artist" placeholder='artist' value={musicInputs.artist}                       
+                    />
 
-                {showAutoSuggestion()}
+                    {showAutoSuggestion && showAutoSuggestionFunction()}
                 
                 </div>
+
+                 
 
             </div>
           
 
             <input type="submit" value="Add" />
-
+            
         </form>
+
+
+
     </div>
   )
 }
