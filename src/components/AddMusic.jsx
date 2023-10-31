@@ -1,6 +1,7 @@
 import { addDoc, collection, getDocs } from 'firebase/firestore/lite';
 import {db} from '../firebase'
 import React,{useEffect, useState} from 'react'
+import Autocomplete from './Autocomplete';
 
 
 
@@ -58,32 +59,6 @@ const AddMusic = ({newSong}) => {
      },[artists])
 
 
-    const demoFunc = (e)=>{
-        e.presist()
-        console.log('dd')
-    }
-
-
-
-
-
-    const showAutoSuggestionFunction=()=>{
-
-        const inputArtist = musicInputs.artist?.toLowerCase()
-        const filteredArists = artists?.filter(artist=>artist.name.toLowerCase().includes(inputArtist))
-
-
-        return(
-            <ul>
-                {filteredArists && filteredArists.map(artist=>(
-                     <li onClick={()=>setMusicInputs(prev=>({...prev, artist:artist.name}))} key={artist.id}>{artist.name}</li>
-                ))}
-
-               
-                
-            </ul>
-        )
-    }
 
 
 
@@ -103,21 +78,23 @@ const AddMusic = ({newSong}) => {
                             placeholder='name' 
                     />
                     </div>
-                <div tabIndex={0} 
-                        onBlur={(e) => {
-                            if (!e.currentTarget.contains(e.relatedTarget)) {
-                              setAutoSuggestion(false);
-                            }
-                          }}
-                        onFocus={()=>setAutoSuggestion(true)}                                
-                        className="addMusic__inputWrapper">
+                <div  
+                    onBlur={(e) => {
+                        if (!e.currentTarget.contains(e.relatedTarget)) {
+                          setAutoSuggestion(false);
+                        }
+                      }}
+                                                   
+                    onChange={()=>setAutoSuggestion(true)}                                
+                    className="addMusic__inputWrapper">
 
-                    <input type="text"    autoComplete="off"
+                    <input type="text" autoComplete="off"
+                    onFocus={()=>setAutoSuggestion(true)} 
                         onChange={(e)=> updateInput(e)}                    
                         name="artist" placeholder='artist' value={musicInputs.artist}                       
                     />
 
-                    {showAutoSuggestion && showAutoSuggestionFunction()}
+                    {showAutoSuggestion && <Autocomplete musicInputs={musicInputs} artists={artists} setMusicInputs={setMusicInputs} setAutoSuggestion={setAutoSuggestion}/>}
                 
                 </div>
 
@@ -126,7 +103,7 @@ const AddMusic = ({newSong}) => {
             </div>
           
 
-            <input type="submit" value="Add" />
+            <input className='button' type="submit" value="Add" />
             
         </form>
 
