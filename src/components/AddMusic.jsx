@@ -2,7 +2,8 @@ import { addDoc, collection, getDocs } from 'firebase/firestore/lite';
 import {db} from '../firebase'
 import React,{useEffect, useState} from 'react'
 import Autocomplete from './Autocomplete';
-
+import starGrey from '../../src/assets/star-grey.png'
+import starGold from '../../src/assets/star-gold.png'
 
 
 
@@ -12,13 +13,14 @@ const AddMusic = ({newSong}) => {
 
     const songCollecionRef = collection(db, 'Song');
     const artistCollecionRef = collection(db, 'Artist');
-    const [musicInputs, setMusicInputs] = useState({name:'', artist:''})
+    const [musicInputs, setMusicInputs] = useState({name:'', artist:'', rating:5})
     const [artists, setArtists] = useState()
     const [showAutoSuggestion, setAutoSuggestion] = useState(false)
-
+    const starsArray = Array.from({length: 10}, (_, i) => null);
+    const [rating, setRating]= useState(0)
+    const [highlighted, setHighlighted]= useState(null)
     
-    const updateInput = (e)=>{
-      
+    const updateInput = (e)=>{   
         const {name, value} = e.target;
         setMusicInputs({...musicInputs, [name]: value})
 
@@ -48,17 +50,27 @@ const AddMusic = ({newSong}) => {
        
        getArtists()
 
-      
     },[])
 
-
     useEffect( ()=>{
-
-      
-       
-     },[artists])
+        setMusicInputs(prev=>({...prev, rating:rating}))
+    },[rating])
 
 
+
+    const highlightingStars = (e)=>{
+        const starIndex = e.target.dataset.index
+        setHighlighted(starIndex)
+    }
+
+    const unhighlightingStars = (e)=>{
+        setHighlighted(null)
+    }
+
+    const selectingStar = async (e)=>{
+      const starIndex = Number(e.target.dataset.index);
+      setRating(starIndex)   
+    }
 
 
 
@@ -89,7 +101,7 @@ const AddMusic = ({newSong}) => {
                     className="addMusic__inputWrapper">
 
                     <input type="text" autoComplete="off"
-                    onFocus={()=>setAutoSuggestion(true)} 
+                        onFocus={()=>setAutoSuggestion(true)} 
                         onChange={(e)=> updateInput(e)}                    
                         name="artist" placeholder='artist' value={musicInputs.artist}                       
                     />
@@ -97,11 +109,25 @@ const AddMusic = ({newSong}) => {
                     {showAutoSuggestion && <Autocomplete musicInputs={musicInputs} artists={artists} setMusicInputs={setMusicInputs} setAutoSuggestion={setAutoSuggestion}/>}
                 
                 </div>
-
-                 
-
+                
             </div>
           
+
+            <div className="musics__starsWrapper">
+                {starsArray.map((_, i)=>(
+                  <img 
+                    key={i+1}
+                    onMouseOver={e=>highlightingStars(e)}
+                    onMouseLeave={e=>unhighlightingStars(e)}
+                    onClick={e=>selectingStar(e)}
+                    className='musics__star' 
+                    data-index={i+1} 
+                    data-selected={i==rating?true:false}
+                    src={i<(highlighted||rating)?starGold:starGrey} alt="" 
+                  />
+                ))}
+            </div> 
+
 
             <input className='button' type="submit" value="Add" />
             

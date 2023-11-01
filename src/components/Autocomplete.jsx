@@ -9,11 +9,10 @@ const Autocomplete = ({musicInputs, artists, setMusicInputs, setAutoSuggestion})
     
         if(e.key=='Escape'){
             setAutoSuggestion(false)
-        }else if(e.key=='Enter'){
-            console.log(filteredArists[currentFocused])
+        }else if(e.key=='Enter'){ 
             setMusicInputs(prev=>({...prev, artist:filteredArists[currentFocused].name}))
+            setAutoSuggestion(false)
         }else if(e.key=='ArrowUp'){
-            console.log(currentFocused)
             if(currentFocused<=-1){
                 setCurrentFocused(filteredArists?.length-1)
             }else{

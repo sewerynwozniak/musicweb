@@ -9,7 +9,7 @@ const Music = ({song}) => {
 
     const [rating, setRating]= useState(song.rating)
     const [highlighted, setHighlighted]= useState(null)
-    let starsArray = Array.from({length: 10}, (_, i) => null);
+    const starsArray = Array.from({length: 10}, (_, i) => null);
 
 
 
