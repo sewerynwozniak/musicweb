@@ -10,6 +10,7 @@ const Autocomplete = ({musicInputs, artists, setMusicInputs, setAutoSuggestion})
         if(e.key=='Escape'){
             setAutoSuggestion(false)
         }else if(e.key=='Enter'){ 
+            e.preventDefault()
             setMusicInputs(prev=>({...prev, artist:filteredArists[currentFocused].name}))
             setAutoSuggestion(false)
         }else if(e.key=='ArrowUp'){
@@ -43,10 +44,14 @@ const Autocomplete = ({musicInputs, artists, setMusicInputs, setAutoSuggestion})
     const filteredArists = artists?.filter(artist=>artist.name.toLowerCase().includes(inputArtist))
 
 
+  
+
+
     return(
         <ul>
             {filteredArists && filteredArists.map((artist, index)=>(
-                 <li className={`${index==currentFocused && 'addMusic__currectFocus'}`} key={artist.id} onClick={()=>setMusicInputs(prev=>({...prev, artist:artist.name}))}>{artist.name}</li>
+                  <li className={`${index==currentFocused && 'addMusic__currectFocus'}`} key={artist.id} onMouseDown={()=>setMusicInputs(prev=>({...prev, artist:artist.name}))}>{artist.name}</li>
+           
             ))}
   
         </ul>

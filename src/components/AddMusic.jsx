@@ -13,7 +13,7 @@ const AddMusic = ({newSong}) => {
 
     const songCollecionRef = collection(db, 'Song');
     const artistCollecionRef = collection(db, 'Artist');
-    const [musicInputs, setMusicInputs] = useState({name:'', artist:'', rating:5})
+    const [musicInputs, setMusicInputs] = useState({name:'', artist:'', rating:0})
     const [artists, setArtists] = useState()
     const [showAutoSuggestion, setAutoSuggestion] = useState(false)
     const starsArray = Array.from({length: 10}, (_, i) => null);
@@ -29,10 +29,10 @@ const AddMusic = ({newSong}) => {
     const submitMusic = async (e)=>{
         e.preventDefault();
        
-        if(musicInputs.artist=='' || musicInputs.name=='') return
-        console.log('wykonujemy')
-        await addDoc(songCollecionRef, musicInputs)
-        await newSong();
+        if(musicInputs.artist=='' || musicInputs.name=='')return
+        console.log('submitujemy')
+        // await addDoc(songCollecionRef, musicInputs)
+        // await newSong();
     }
 
 
@@ -82,25 +82,25 @@ const AddMusic = ({newSong}) => {
             <div className="addMusic__inputsWrapper">
 
                 <div className="addMusic__inputWrapper">
-                    <input type="text"                  
+                    <input type="text" required                
                         onChange={(e)=>{
                             updateInput(e); 
                         }} 
                             name="name" 
                             placeholder='name' 
                     />
-                    </div>
+                </div>
                 <div  
                     onBlur={(e) => {
                         if (!e.currentTarget.contains(e.relatedTarget)) {
-                          setAutoSuggestion(false);
+                            setAutoSuggestion(false);
                         }
-                      }}
+                    }}
                                                    
                     onChange={()=>setAutoSuggestion(true)}                                
                     className="addMusic__inputWrapper">
 
-                    <input type="text" autoComplete="off"
+                    <input type="text" required autoComplete="off"
                         onFocus={()=>setAutoSuggestion(true)} 
                         onChange={(e)=> updateInput(e)}                    
                         name="artist" placeholder='artist' value={musicInputs.artist}                       
