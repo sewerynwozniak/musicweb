@@ -19,6 +19,12 @@ const AddMusic = ({newSong}) => {
     const starsArray = Array.from({length: 10}, (_, i) => null);
     const [rating, setRating]= useState(0)
     const [highlighted, setHighlighted]= useState(null)
+
+
+    const inputArtist = musicInputs.artist?.toLowerCase()
+    const filteredArists = artists?.filter(artist=>artist.name.toLowerCase().includes(inputArtist))
+
+    console.log(filteredArists)
     
     const updateInput = (e)=>{   
         const {name, value} = e.target;
@@ -30,7 +36,7 @@ const AddMusic = ({newSong}) => {
         e.preventDefault();
        
         if(musicInputs.artist=='' || musicInputs.name=='')return
-        console.log('submitujemy')
+        console.log('submitujemy', musicInputs)
         // await addDoc(songCollecionRef, musicInputs)
         // await newSong();
     }
@@ -57,6 +63,11 @@ const AddMusic = ({newSong}) => {
     },[rating])
 
 
+    useEffect( ()=>{
+        !filteredArists?.length && setAutoSuggestion(false)
+    },[filteredArists])
+
+
 
     const highlightingStars = (e)=>{
         const starIndex = e.target.dataset.index
@@ -73,6 +84,7 @@ const AddMusic = ({newSong}) => {
     }
 
 
+  
 
   return (
     <div>
@@ -106,7 +118,16 @@ const AddMusic = ({newSong}) => {
                         name="artist" placeholder='artist' value={musicInputs.artist}                       
                     />
 
-                    {showAutoSuggestion && <Autocomplete musicInputs={musicInputs} artists={artists} setMusicInputs={setMusicInputs} setAutoSuggestion={setAutoSuggestion}/>}
+                    {showAutoSuggestion && 
+
+                    <Autocomplete 
+                        musicInputs={musicInputs} 
+                        artists={artists} 
+                        setMusicInputs={setMusicInputs} 
+                        setAutoSuggestion={setAutoSuggestion}
+                        submitMusic={submitMusic}
+                        filteredArists={filteredArists}
+                    />}
                 
                 </div>
                 

@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react'
 
-const Autocomplete = ({musicInputs, artists, setMusicInputs, setAutoSuggestion}) => {
+const Autocomplete = ({musicInputs, artists, setMusicInputs, setAutoSuggestion, submitMusic, filteredArists}) => {
 
 
-    const [currentFocused, setCurrentFocused] = useState(2)
+    
+
+    const [currentFocused, setCurrentFocused] = useState(-1)
 
     const handleKeyboard =(e)=>{
     
+       
+
         if(e.key=='Escape'){
             setAutoSuggestion(false)
         }else if(e.key=='Enter'){ 
             e.preventDefault()
-            setMusicInputs(prev=>({...prev, artist:filteredArists[currentFocused].name}))
+            //if any suggestion from autocomplete is selected, add it to musicInputs state, else add new artist
+            if(currentFocused>-1){
+                setMusicInputs(prev=>({...prev, artist:filteredArists[currentFocused].name}))
+            }
             setAutoSuggestion(false)
         }else if(e.key=='ArrowUp'){
             if(currentFocused<=-1){
@@ -37,14 +44,9 @@ const Autocomplete = ({musicInputs, artists, setMusicInputs, setAutoSuggestion})
             document.removeEventListener('keydown', handleKeyboard)
         } 
 
-    },[currentFocused])
+    },[currentFocused, musicInputs])
 
 
-    const inputArtist = musicInputs.artist?.toLowerCase()
-    const filteredArists = artists?.filter(artist=>artist.name.toLowerCase().includes(inputArtist))
-
-
-  
 
 
     return(
