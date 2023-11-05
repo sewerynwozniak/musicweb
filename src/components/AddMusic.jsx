@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs } from 'firebase/firestore/lite';
+import { addDoc, collection, getDocs, deleteDoc } from 'firebase/firestore/lite';
 import {db} from '../firebase'
 import React,{useEffect, useState} from 'react'
 import Autocomplete from './Autocomplete';
@@ -24,7 +24,7 @@ const AddMusic = ({newSong}) => {
     const inputArtist = musicInputs.artist?.toLowerCase()
     const filteredArists = artists?.filter(artist=>artist.name.toLowerCase().includes(inputArtist))
 
-    console.log(filteredArists)
+
     
     const updateInput = (e)=>{   
         const {name, value} = e.target;
@@ -35,10 +35,9 @@ const AddMusic = ({newSong}) => {
     const submitMusic = async (e)=>{
         e.preventDefault();
        
-        if(musicInputs.artist=='' || musicInputs.name=='')return
-        console.log('submitujemy', musicInputs)
-        // await addDoc(songCollecionRef, musicInputs)
-        // await newSong();
+        if(musicInputs.artist=='' || musicInputs.name=='') return      
+        await addDoc(songCollecionRef, musicInputs)
+        await newSong();
     }
 
 
@@ -63,10 +62,6 @@ const AddMusic = ({newSong}) => {
     },[rating])
 
 
-    useEffect( ()=>{
-        !filteredArists?.length && setAutoSuggestion(false)
-    },[filteredArists])
-
 
 
     const highlightingStars = (e)=>{
@@ -81,6 +76,16 @@ const AddMusic = ({newSong}) => {
     const selectingStar = async (e)=>{
       const starIndex = Number(e.target.dataset.index);
       setRating(starIndex)   
+    }
+
+
+    const handleShowingAutoSuggestion = ()=>{
+        if(filteredArists?.length){
+            setAutoSuggestion(true)
+        }else{
+            setAutoSuggestion(false)
+        }
+
     }
 
 
@@ -108,12 +113,12 @@ const AddMusic = ({newSong}) => {
                             setAutoSuggestion(false);
                         }
                     }}
-                                                   
-                    onChange={()=>setAutoSuggestion(true)}                                
+                                                                                 
+                    onChange={handleShowingAutoSuggestion}                                
                     className="addMusic__inputWrapper">
 
                     <input type="text" required autoComplete="off"
-                        onFocus={()=>setAutoSuggestion(true)} 
+                        onFocus={handleShowingAutoSuggestion} 
                         onChange={(e)=> updateInput(e)}                    
                         name="artist" placeholder='artist' value={musicInputs.artist}                       
                     />

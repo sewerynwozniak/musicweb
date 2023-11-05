@@ -22,4 +22,18 @@
         margin: 0 3px;
         cursor: pointer;
     }
+    &__deleteBtn{
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin: 0 20px;
+
+        
+        img{
+            width: 16px;
+
+         
+    
+        }
+    }
 }

@@ -42,7 +42,6 @@ const Musics = () => {
           // Extract the artist reference
           const artistRef = songDoc.data().name;
           arrayOfArtists.push(artistRef)
-          // console.log('artist ref', artistRef)
 
         }
       });
@@ -60,9 +59,7 @@ const Musics = () => {
     const getSongs = async ()=>{
 
       const data = await getDocs(initialSongQuery)
-
       setSongs(data.docs.map(doc => ({id:doc.id, ...doc.data()})))
-
 
     } 
 
