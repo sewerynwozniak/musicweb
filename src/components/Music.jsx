@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {db} from '../firebase'
-import { updateDoc, doc, deleteDoc } from 'firebase/firestore/lite';
+import { updateDoc, doc } from 'firebase/firestore/lite';
 import starGrey from '../../src/assets/star-grey.png'
 import starGold from '../../src/assets/star-gold.png'
 import trashBin from '../../src/assets/trash.png'
 
-const Music = ({song}) => {
+const Music = ({song, deleteSong}) => {
 
 
     const [rating, setRating]= useState(song.rating)
@@ -32,17 +32,6 @@ const Music = ({song}) => {
     }
 
 
-
-    const deleteSong = async (documentId) => {
-      console.log(documentId)
-      try {
-        const docRef = doc(db, 'Song', documentId);
-        await deleteDoc(docRef);
-        console.log('Document deleted successfully');
-      } catch (error) {
-        console.error('Error deleting document:', error);
-      }
-    };
 
 
 

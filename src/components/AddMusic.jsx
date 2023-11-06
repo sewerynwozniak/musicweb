@@ -7,7 +7,7 @@ import starGold from '../../src/assets/star-gold.png'
 
 
 
-const AddMusic = ({newSong}) => {
+const AddMusic = ({newSong, songs}) => {
 
 
 
@@ -34,11 +34,21 @@ const AddMusic = ({newSong}) => {
 
     const submitMusic = async (e)=>{
         e.preventDefault();
-       
-        if(musicInputs.artist=='' || musicInputs.name=='') return      
+      
+        if(musicInputs.artist=='' || musicInputs.name=='') return     
+        const isDuplicate = await checkIfDuplicate(musicInputs.name)
+        if(isDuplicate) return
+
         await addDoc(songCollecionRef, musicInputs)
         await newSong();
     }
+
+    const checkIfDuplicate= async (newSong)=>{
+   
+       const alreadyAdded = songs.find(song=>song.name.toUpperCase()==newSong.toUpperCase())
+       return Boolean(alreadyAdded)
+    }
+
 
 
 

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {db} from '../firebase'
-import { collection, getDocs, getDoc, updateDoc, doc, query, orderBy } from 'firebase/firestore/lite';
+import { collection, getDocs, getDoc, updateDoc, doc, query, orderBy, deleteDoc } from 'firebase/firestore/lite';
 import AddMusic from './AddMusic';
 import Music from './Music';
 import Sort from './Sort';
@@ -51,7 +51,7 @@ const Musics = () => {
       setListOfArtists(arrayOfArtists)
     });
 
-  },[])
+  },[songs])
 
 
   useEffect(()=>{
@@ -98,6 +98,19 @@ const Musics = () => {
   } 
 
 
+  const deleteSong = async (documentId) => {
+
+    try {
+      const docRef = doc(db, 'Song', documentId);
+      await deleteDoc(docRef);
+      setSongs(prev=>prev.filter(song=>song.id!=documentId))
+      console.log('Document deleted successfully');
+    } catch (error) {
+      console.error('Error deleting document:', error);
+    }
+  };
+
+
 
   let songsArray = songs.map(song=>(
 
@@ -105,6 +118,7 @@ const Musics = () => {
           key={song.id}  
           href=""
           song={song}
+          deleteSong={deleteSong}
       />      
    
   ))
@@ -117,7 +131,7 @@ const Musics = () => {
     
     <div className='musics'>
 
-        <AddMusic newSong={()=>setNewSong(true)}/>
+        <AddMusic newSong={()=>setNewSong(true)} songs={songs}/>
         <Sort sortFuncProp={(sortProp)=>setSortType(sortProp)}/>
 
         <p className='musics__headline'>List</p>
