@@ -1,0 +1,31 @@
+.popup{
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ededed;
+    border-radius:  10px;
+    padding: 0 10px;
+    color: #212121;
+
+    &--show{
+        animation: showPopup 3s;
+        
+    }
+}
+
+@keyframes showPopup {
+    0%{
+        top: -100%;
+    }
+    10%{
+        top: 20px;
+    }
+    90%{
+        top: 20px;
+    }
+
+    100%{
+        top: -100%;
+    }
+}

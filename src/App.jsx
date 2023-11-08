@@ -8,7 +8,9 @@ import Home from './components/Home'
 import Musics from './components/Musics'
 import ProtectedRoutes from './components/ProtectedRoutes';
 import { AuthProvider } from './contexts/AuthContext';
+import PopupProvider from './contexts/PopupContext';
 import Chat from './components/Chat';
+import Popup from './components/Popup';
 
 
 
@@ -17,7 +19,9 @@ function App() {
  
   return (
     <AuthProvider>
+    <PopupProvider>
       <div className="App">
+        <Popup />
         <Navbar />
         <Routes>
           <Route element={<LayoutMain />}>
@@ -31,6 +35,7 @@ function App() {
         </Routes> 
 
       </div>
+    </PopupProvider>
     </AuthProvider>
 
   )

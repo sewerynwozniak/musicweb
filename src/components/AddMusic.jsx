@@ -4,7 +4,7 @@ import React,{useEffect, useState} from 'react'
 import Autocomplete from './Autocomplete';
 import starGrey from '../../src/assets/star-grey.png'
 import starGold from '../../src/assets/star-gold.png'
-
+import { usePopupContext } from '../contexts/PopupContext';
 
 
 const AddMusic = ({newSong, songs}) => {
@@ -19,6 +19,7 @@ const AddMusic = ({newSong, songs}) => {
     const starsArray = Array.from({length: 10}, (_, i) => null);
     const [rating, setRating]= useState(0)
     const [highlighted, setHighlighted]= useState(null)
+    const { showPopup, setShowPopup, showPopupWithTimeout } = usePopupContext()
 
 
     const inputArtist = musicInputs.artist?.toLowerCase()
@@ -37,7 +38,10 @@ const AddMusic = ({newSong, songs}) => {
       
         if(musicInputs.artist=='' || musicInputs.name=='') return     
         const isDuplicate = await checkIfDuplicate(musicInputs.name)
-        if(isDuplicate) return
+        if(isDuplicate){ 
+            showPopupWithTimeout('This song has been already added')
+            return
+        }
 
         await addDoc(songCollecionRef, musicInputs)
         await newSong();
